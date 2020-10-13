@@ -1,0 +1,16 @@
+
+acquisition_frame_rate: 30.0
+acquisition_frame_rate_enable: true
+auto_exposure_time_upper_limit: 35000.0
+auto_white_balance: Continuous
+brightness: 10.0
+exposure_auto: Continuous
+ieee1588_enable: true
+image_format_color_coding: BayerRG8
+
+enable_trigger: 'On'
+timeout: 0
+trigger_source: Line2
+trigger_selector: FrameStart
+trigger_overlap_mode: ReadOut
+trigger_activation_mode: FallingEdge

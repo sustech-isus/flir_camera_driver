@@ -1,0 +1,137 @@
+<?xml version="1.0"?>
+
+<launch>
+  <!-- Common parameters -->
+  <arg name="camera_name" default="cameras" />
+
+  <arg name="front_camera_serial" default="19361854" />
+  <arg name="front_camera_calibrated" default="0" />
+
+  <arg name="front_right_camera_serial" default="19361897" />
+  <arg name="front_right_camera_calibrated" default="0" />
+
+  <arg name="rear_right_camera_serial" default="18566205" />
+  <arg name="rear_right_camera_calibrated" default="0" />
+
+  <arg name="rear_camera_serial" default="19361870" />
+  <arg name="rear_camera_calibrated" default="0" />
+
+  <arg name="rear_left_camera_serial" default="18584971" />
+  <arg name="rear_left_camera_calibrated" default="0" />
+
+  <arg name="front_left_camera_serial" default="19361896" />
+  <arg name="front_left_camera_calibrated" default="0" />
+
+  <!-- Common camera parameters file -->
+  <arg name="camera_param_file" default="$(find spinnaker_camera_driver)/launch/6cam_sync_param.yaml" />
+
+<node pkg="nodelet" type="nodelet" name="camera_nodelet_manager" args="manager" />
+  <group ns="$(arg camera_name)" >
+    <group ns="180_front" >
+      <node pkg="nodelet" type="nodelet" name="camera_nodelet"
+            args="load spinnaker_camera_driver/SpinnakerCameraNodelet /camera_nodelet_manager" >
+        <param name="frame_id" value="camera_front" />
+        <param name="serial" value="$(arg front_camera_serial)" />
+        <rosparam command="load" file="$(arg camera_param_file)" />
+        <param name="camera_info_url" if="$(arg front_camera_calibrated)"
+               value="file://$(env HOME)/.ros/camera_info/$(arg front_camera_serial).yaml" />
+      </node>
+
+      <node pkg="nodelet" type="nodelet" name="image_proc_debayer"
+          args="load image_proc/debayer /camera_nodelet_manager">
+      </node>
+
+   </group>
+
+    <group ns="130_front_right" >
+      <node pkg="nodelet" type="nodelet" name="camera_nodelet"
+            args="load spinnaker_camera_driver/SpinnakerCameraNodelet /camera_nodelet_manager" >
+
+        <param name="frame_id" value="camera_front_right" />
+        <param name="serial" value="$(arg front_right_camera_serial)" />
+        <rosparam command="load" file="$(arg camera_param_file)" />
+
+        <param name="camera_info_url" if="$(arg front_right_camera_calibrated)"
+               value="file://$(env HOME)/.ros/camera_info/$(arg front_right_camera_serial).yaml" />
+      </node>
+
+      <node pkg="nodelet" type="nodelet" name="image_proc_debayer"
+          args="load image_proc/debayer /camera_nodelet_manager">
+      </node>
+    </group>
+
+    <group ns="070_rear_right" >
+      <node pkg="nodelet" type="nodelet" name="camera_nodelet"
+            args="load spinnaker_camera_driver/SpinnakerCameraNodelet /camera_nodelet_manager" >
+
+        <param name="frame_id" value="camera_rear_right" />
+        <param name="serial" value="$(arg rear_right_camera_serial)" />
+        <rosparam command="load" file="$(arg camera_param_file)" />
+
+        <param name="camera_info_url" if="$(arg rear_right_camera_calibrated)"
+               value="file://$(env HOME)/.ros/camera_info/$(arg rear_right_camera_serial).yaml" />
+      </node>
+
+      <node pkg="nodelet" type="nodelet" name="image_proc_debayer"
+          args="load image_proc/debayer /camera_nodelet_manager">
+      </node>
+    </group>
+
+    <group ns="000_rear" >
+
+      <node pkg="nodelet" type="nodelet" name="camera_nodelet"
+            args="load spinnaker_camera_driver/SpinnakerCameraNodelet /camera_nodelet_manager" >
+
+        <param name="frame_id" value="camera_rear" />
+        <param name="serial" value="$(arg rear_camera_serial)" />
+        <rosparam command="load" file="$(arg camera_param_file)" />
+
+        <param name="camera_info_url" if="$(arg rear_camera_calibrated)"
+               value="file://$(env HOME)/.ros/camera_info/$(arg rear_camera_serial).yaml" />
+      </node>
+
+      <node pkg="nodelet" type="nodelet" name="image_proc_debayer"
+          args="load image_proc/debayer /camera_nodelet_manager">
+      </node>
+
+    </group>    
+
+    <group ns="290_rear_left" >
+
+      <node pkg="nodelet" type="nodelet" name="camera_nodelet"
+            args="load spinnaker_camera_driver/SpinnakerCameraNodelet /camera_nodelet_manager" >
+
+        <param name="frame_id" value="camera_rear_left" />
+        <param name="serial" value="$(arg rear_left_camera_serial)" />
+        <rosparam command="load" file="$(arg camera_param_file)" />
+
+        <param name="camera_info_url" if="$(arg rear_left_camera_calibrated)"
+               value="file://$(env HOME)/.ros/camera_info/$(arg rear_left_camera_serial).yaml" />
+      </node>
+
+      <node pkg="nodelet" type="nodelet" name="image_proc_debayer"
+          args="load image_proc/debayer /camera_nodelet_manager">
+      </node>
+
+    </group>   
+
+    <group ns="230_front_left" >
+
+      <node pkg="nodelet" type="nodelet" name="camera_nodelet"
+            args="load spinnaker_camera_driver/SpinnakerCameraNodelet /camera_nodelet_manager" >
+        <param name="frame_id" value="camera_front_left" />
+        <param name="serial" value="$(arg front_left_camera_serial)" />
+        <rosparam command="load" file="$(arg camera_param_file)" />
+
+        <param name="camera_info_url" if="$(arg front_left_camera_calibrated)"
+               value="file://$(env HOME)/.ros/camera_info/$(arg front_left_camera_serial).yaml" />
+      </node>
+
+      <node pkg="nodelet" type="nodelet" name="image_proc_debayer"
+          args="load image_proc/debayer /camera_nodelet_manager">
+      </node>
+
+    </group>  
+
+  </group>
+</launch>
