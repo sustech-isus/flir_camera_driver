@@ -8,7 +8,12 @@ exposure_auto: Continuous
 ieee1588_enable: true
 image_format_color_coding: BayerRG8
 
-enable_trigger: 'On'
+image_format_x_binning: 2
+image_format_y_binning: 2
+
+auto_exposure_lighting_mode: Backlight
+
+enable_trigger: 'Off'
 timeout: 20
 trigger_source: Line2
 trigger_selector: FrameStart

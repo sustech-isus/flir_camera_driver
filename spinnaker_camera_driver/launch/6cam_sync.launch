@@ -4,6 +4,9 @@
   <!-- Common parameters -->
   <arg name="camera_name" default="cameras" />
 
+  <arg name="driver_camera_serial" default="18566208" />
+  <arg name="driver_camera_calibrated" default="0" />
+
   <arg name="front_camera_serial" default="19361854" />
   <arg name="front_camera_calibrated" default="0" />
 
@@ -24,9 +27,28 @@
 
   <!-- Common camera parameters file -->
   <arg name="camera_param_file" default="$(find spinnaker_camera_driver)/launch/6cam_sync_param.yaml" />
+  <arg name="driver_camera_param_file" default="$(find spinnaker_camera_driver)/launch/driver_camera.yaml" />
+
 
 <node pkg="nodelet" type="nodelet" name="camera_nodelet_manager" args="manager" />
   <group ns="$(arg camera_name)" >
+    <group ns="driver_camera" >
+      <node pkg="nodelet" type="nodelet" name="camera_nodelet"
+            args="load spinnaker_camera_driver/SpinnakerCameraNodelet /camera_nodelet_manager" >
+        <param name="frame_id" value="driver_camera" />
+        <param name="serial" value="$(arg driver_camera_serial)" />
+        <rosparam command="load" file="$(arg driver_camera_param_file)" />
+        <param name="camera_info_url" if="$(arg driver_camera_calibrated)"
+               value="file://$(env HOME)/.ros/camera_info/$(arg front_camera_serial).yaml" />
+      </node>
+
+      <node pkg="nodelet" type="nodelet" name="image_proc_debayer"
+          args="load image_proc/debayer /camera_nodelet_manager">
+      </node>
+
+    </group>
+
+
     <group ns="180_front" >
       <node pkg="nodelet" type="nodelet" name="camera_nodelet"
             args="load spinnaker_camera_driver/SpinnakerCameraNodelet /camera_nodelet_manager" >
