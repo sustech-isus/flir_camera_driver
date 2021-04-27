@@ -1,5 +1,5 @@
 
-acquisition_frame_rate: 20.0
+acquisition_frame_rate: 10.0
 acquisition_frame_rate_enable: true
 auto_exposure_time_upper_limit: 35000.0
 auto_white_balance: Continuous

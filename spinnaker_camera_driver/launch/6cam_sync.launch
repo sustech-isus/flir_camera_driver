@@ -49,7 +49,7 @@
     </group>
 
 
-    <group ns="180_front" >
+    <group ns="front" >
       <node pkg="nodelet" type="nodelet" name="camera_nodelet"
             args="load spinnaker_camera_driver/SpinnakerCameraNodelet /camera_nodelet_manager" >
         <param name="frame_id" value="camera_front" />
@@ -65,7 +65,7 @@
 
    </group>
 
-    <group ns="130_front_right" >
+    <group ns="front_right" >
       <node pkg="nodelet" type="nodelet" name="camera_nodelet"
             args="load spinnaker_camera_driver/SpinnakerCameraNodelet /camera_nodelet_manager" >
 
@@ -82,7 +82,7 @@
       </node>
     </group>
 
-    <group ns="070_rear_right" >
+    <group ns="rear_right" >
       <node pkg="nodelet" type="nodelet" name="camera_nodelet"
             args="load spinnaker_camera_driver/SpinnakerCameraNodelet /camera_nodelet_manager" >
 
@@ -99,7 +99,7 @@
       </node>
     </group>
 
-    <group ns="000_rear" >
+    <group ns="rear" >
 
       <node pkg="nodelet" type="nodelet" name="camera_nodelet"
             args="load spinnaker_camera_driver/SpinnakerCameraNodelet /camera_nodelet_manager" >
@@ -118,7 +118,7 @@
 
     </group>    
 
-    <group ns="290_rear_left" >
+    <group ns="rear_left" >
 
       <node pkg="nodelet" type="nodelet" name="camera_nodelet"
             args="load spinnaker_camera_driver/SpinnakerCameraNodelet /camera_nodelet_manager" >
@@ -137,7 +137,7 @@
 
     </group>   
 
-    <group ns="230_front_left" >
+    <group ns="front_left" >
 
       <node pkg="nodelet" type="nodelet" name="camera_nodelet"
             args="load spinnaker_camera_driver/SpinnakerCameraNodelet /camera_nodelet_manager" >
