@@ -587,8 +587,15 @@ private:
             // wfov_image->temperature = spinnaker_.getCameraTemperature();
 
             ros::Time time = ros::Time::now();
+
+            // std::stringstream ss;
+            // ss <<"head ts "<<wfov_image->image.header.stamp << " ros ts " << time << std::endl;
+            // ROS_WARN(ss.str().c_str() );
+            
             wfov_image->header.stamp = time;
-            wfov_image->image.header.stamp = time;
+
+            // filled by camera
+            //wfov_image->image.header.stamp = time;
 
             // Set the CameraInfo message
             ci_.reset(new sensor_msgs::CameraInfo(cinfo_->getCameraInfo()));

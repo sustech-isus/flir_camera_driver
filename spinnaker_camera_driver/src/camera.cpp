@@ -176,6 +176,20 @@ void Camera::setNewConfiguration(const SpinnakerConfig& config, const uint32_t& 
     {
       setProperty(node_map_, "AutoExposureLightingMode", config.auto_exposure_lighting_mode);
     }
+
+
+    // set 1588, hard code
+    
+    setProperty(node_map_, "GevIEEE1588", true);
+    setProperty(node_map_, "GevIEEE1588Mode", std::string("SlaveOnly"));
+
+    // spinnaker::CBooleanPtr ptrIeee1588 = nodeMap.GetNode("GevIEEE1588");
+    // ptrIeee1588->SetValue(true);
+  
+    // spinnaker::CEnumerationPtr enumerationPtr = nodeMap.GetNode("GevIEEE1588Mode");
+    // spinnaker::CEnumEntryPtr enumEmtryPtr = enumerationPtr->GetEntryByName("SlaveOnly");
+    // enumerationPtr->SetIntValue(enumEmtryPtr->GetValue());
+
   }
   catch (const Spinnaker::Exception& e)
   {

@@ -240,7 +240,7 @@ void SpinnakerCamera::connect()
       }
 
       // Configure chunk data - Enable Metadata
-      // SpinnakerCamera::ConfigureChunkData(*node_map_);
+      SpinnakerCamera::ConfigureChunkData(*node_map_);
     }
     catch (const Spinnaker::Exception& e)
     {
@@ -337,15 +337,13 @@ void SpinnakerCamera::grabImage(sensor_msgs::Image* image, const std::string& fr
 
       if (image_ptr->IsIncomplete())
       {
+        ROS_WARN("[SpinnakerCamera::grabImage] Image received from camera is incomplete.");
         throw std::runtime_error("[SpinnakerCamera::grabImage] Image received from camera " + std::to_string(serial_) +
-                                 " is incomplete.");
+                                  " is incomplete.");
       }
       else
       {
-        // Set Image Time Stamp
-        image->header.stamp.sec = image_ptr->GetTimeStamp() * 1e-9;
-        image->header.stamp.nsec = image_ptr->GetTimeStamp();
-
+        
         // Check the bits per pixel.
         size_t bitsPerPixel = image_ptr->GetBitsPerPixel();
 
@@ -437,6 +435,20 @@ void SpinnakerCamera::grabImage(sensor_msgs::Image* image, const std::string& fr
         // ROS_INFO_ONCE("\033[93m wxh: (%d, %d), stride: %d \n", width, height, stride);
         fillImage(*image, imageEncoding, height, width, stride, image_ptr->GetData());
         image->header.frame_id = frame_id;
+
+
+        Spinnaker::ChunkData chunkData = image_ptr->GetChunkData();
+        uint64_t timestamp = chunkData.GetTimestamp();
+        
+        // std::stringstream ss;
+        // ss <<"ts "<< timestamp;
+        // ROS_WARN(ss.str().c_str() );
+
+        // Set Image Time Stamp
+        image->header.stamp = ros::Time(timestamp / 1000000000L, timestamp % 1000000000L);
+
+
+
       }  // end else
     }
     catch (const Spinnaker::Exception& e)
