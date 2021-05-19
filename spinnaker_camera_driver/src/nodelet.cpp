@@ -626,7 +626,10 @@ private:
           {
             NODELET_WARN("%s", e.what());
           }
-
+          catch (CameraImageIncompleteException & e)
+          {
+            NODELET_WARN("%s", e.what());
+          }
           catch (std::runtime_error& e)
           {
             NODELET_ERROR("%s", e.what());

@@ -57,6 +57,17 @@ public:
   }
 };
 
+class CameraImageIncompleteException : public std::runtime_error
+{
+public:
+  CameraImageIncompleteException() : runtime_error("Image incomplete.")
+  {
+  }
+  explicit CameraImageIncompleteException(const std::string& msg) : runtime_error(msg.c_str())
+  {
+  }
+};
+
 class CameraNotRunningException : public std::runtime_error
 {
 public:
